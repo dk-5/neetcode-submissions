@@ -1,0 +1,25 @@
+class Solution {
+    int [][] memo;
+    public int rob(int[] nums) {
+        memo=new int[nums.length][2];
+        if(nums.length==1) return nums[0];
+        for(int i=0;i<nums.length;i++)
+        {
+            memo[i][0]=-1;
+            memo[i][1]=-1;
+        }
+        return Math.max(dfs(0,1,nums),dfs(1,0,nums));
+    }
+    public int dfs(int i,int flag,int[] nums)
+    {
+        if(i>=nums.length || ( flag==1 && i==nums.length-1))
+        {
+            return 0;
+        }
+        if(memo[i][flag]!=-1)
+        {
+            return memo[i][flag];
+        }
+        return memo[i][flag]=Math.max(dfs(i+1,flag,nums),nums[i]+dfs(i+2,flag,nums));
+    }
+}
